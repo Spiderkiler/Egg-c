@@ -1,0 +1,54 @@
+name: salted_egg_clock
+description: 咸蛋时钟 - 专注每一分钟，像咸蛋一样沉淀自己。
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # 状态管理
+  provider: ^6.1.1
+
+  # 本地存储
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  # 图表
+  fl_chart: ^0.66.0
+
+  # 动画
+  flutter_animate: ^4.3.0
+
+  # 音频播放
+  audioplayers: ^5.2.1
+
+  # 窗口管理
+  window_manager: ^0.3.7
+
+  # 本地通知
+  flutter_local_notifications: ^17.0.0
+
+  # 国际化
+  intl: ^0.18.1
+
+  # 路径
+  path_provider: ^2.1.1
+
+  # UUID生成
+  uuid: ^4.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/sounds/
+    - assets/images/
