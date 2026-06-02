@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                     '今日专注',
                     style: TextStyle(
                       fontSize: 22,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                       color: isDark ? Colors.white : AppColors.textPrimary,
                     ),
                   ),
@@ -137,9 +137,8 @@ class _HomePageState extends State<HomePage> {
             vm.formattedTodayFocus,
             style: TextStyle(
               fontSize: 48,
-              fontWeight: FontWeight.w200,
+              fontWeight: FontWeight.w300,
               color: isDark ? Colors.white : AppColors.textPrimary,
-              fontFamily: 'monospace',
               letterSpacing: 2,
               height: 1.1,
             ),
@@ -266,7 +265,7 @@ class _HomePageState extends State<HomePage> {
                       vm.focusLevelName,
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w600,
                         color:
                             isDark ? Colors.white : AppColors.textPrimary,
                       ),

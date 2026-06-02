@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 
 class AppTheme {
+  /// 主题过渡动画时长，应用中所有主题相关动画应统一使用此常量
+  static const Duration themeTransitionDuration = Duration(milliseconds: 400);
+
+  /// 主题过渡动画曲线
+  static const Curve themeTransitionCurve = Curves.easeInOut;
+
   /// 根据主题模式获取对应的 ThemeData
   static ThemeData getTheme(ThemeMode mode, {bool isDark = false}) {
     if (mode == ThemeMode.dark || (mode == ThemeMode.system && isDark)) {
@@ -32,6 +38,11 @@ class AppTheme {
     ],
   );
 
+  /// 根据深色模式获取对应的背景渐变
+  static LinearGradient getBackgroundGradient(bool isDark) {
+    return isDark ? darkGradient : lightGradient;
+  }
+
   /// 获取卡片渐变背景
   static LinearGradient getCardGradient(bool isDark) {
     return LinearGradient(
@@ -47,5 +58,10 @@ class AppTheme {
               Colors.white.withOpacity(0.7),
             ],
     );
+  }
+
+  /// 获取主题过渡遮罩颜色
+  static Color getTransitionOverlayColor(bool isDark) {
+    return isDark ? AppColors.backgroundDark : AppColors.backgroundLight;
   }
 }

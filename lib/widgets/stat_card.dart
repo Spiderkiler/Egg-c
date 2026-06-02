@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants/app_colors.dart';
+import '../core/theme/app_theme.dart';
 
 class StatCard extends StatelessWidget {
   /// 卡片标题
@@ -41,7 +42,9 @@ class StatCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: AnimatedContainer(
+        duration: AppTheme.themeTransitionDuration,
+        curve: AppTheme.themeTransitionCurve,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: bgColor,
@@ -75,7 +78,7 @@ class StatCard extends StatelessWidget {
               value,
               style: TextStyle(
                 fontSize: 28,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
                 color: isDark ? Colors.white : AppColors.textPrimary,
                 letterSpacing: -1,
                 height: 1.1,

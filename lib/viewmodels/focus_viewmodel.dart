@@ -149,29 +149,39 @@ class FocusViewModel extends ChangeNotifier {
   /// 计时器变化回调
   void _onTimerChanged() async {
     if (_timerService.state == TimerState.completed) {
-      final record = _timerService.takeCompletedRecord();
-      if (record != null) {
-        await _focusRepository.save(record);
+      try {
+        // 播放完成提示音（触感反馈 + 提示音文件）
+        _soundService.playCompletionSound();
 
-        // 如果是专注完成且关联了任务，增加任务的番茄钟
-        if (record.type == FocusType.focus && selectedTask != null) {
-          await _taskRepository.incrementPomodoro(selectedTask!);
-        }
+        final record = _timerService.takeCompletedRecord();
+        if (record != null) {
+          await _focusRepository.save(record);
 
-        // 发送通知
-        if (_settings.notificationsEnabled) {
-          if (record.type == FocusType.focus) {
-            await _notificationService.showFocusEndNotification();
-          } else {
-            await _notificationService.showBreakEndNotification();
+          // 如果是专注完成且关联了任务，增加任务的番茄钟
+          if (record.type == FocusType.focus && selectedTask != null) {
+            await _taskRepository.incrementPomodoro(selectedTask!);
           }
+
+          // 发送通知
+          if (_settings.notificationsEnabled) {
+            if (record.type == FocusType.focus) {
+              await _notificationService.showFocusEndNotification();
+            } else {
+              await _notificationService.showBreakEndNotification();
+            }
+          }
+
+          // 检查成就
+          await _achievementService.checkAll();
         }
 
-        // 检查成就
-        await _achievementService.checkAll();
+        _soundService.pause();
+      } catch (e) {
+        // 保证回调异常时计时器状态仍被正确清理
+        debugPrint('FocusViewModel._onTimerChanged error: $e');
+        _timerService.takeCompletedRecord();
+        _soundService.pause();
       }
-
-      _soundService.pause();
     }
     notifyListeners();
   }

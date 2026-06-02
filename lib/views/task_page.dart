@@ -132,7 +132,7 @@ class _TaskPageState extends State<TaskPage> {
               '📝 任务管理',
               style: TextStyle(
                 fontSize: 28,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w600,
                 color: isDark ? Colors.white : AppColors.textPrimary,
               ),
             ),

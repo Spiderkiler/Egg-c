@@ -50,9 +50,8 @@ class WelcomeHeader extends StatelessWidget {
               time,
               style: TextStyle(
                 fontSize: 32,
-                fontWeight: FontWeight.w200,
+                fontWeight: FontWeight.w300,
                 color: isDark ? Colors.white : AppColors.textPrimary,
-                fontFamily: 'monospace',
                 letterSpacing: 2,
               ),
             ).animate().fadeIn(
@@ -68,7 +67,7 @@ class WelcomeHeader extends StatelessWidget {
           greeting,
           style: TextStyle(
             fontSize: 28,
-            fontWeight: FontWeight.w700,
+            fontWeight: FontWeight.w600,
             color: isDark ? Colors.white : AppColors.textPrimary,
             letterSpacing: -0.5,
             height: 1.3,

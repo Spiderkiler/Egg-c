@@ -41,7 +41,7 @@ class _StatisticsPageState extends State<StatisticsPage> {
                 '📊 数据统计',
                 style: TextStyle(
                   fontSize: 28,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   color: isDark ? Colors.white : AppColors.textPrimary,
                 ),
               ),

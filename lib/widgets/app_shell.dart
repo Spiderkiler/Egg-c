@@ -2,7 +2,7 @@
 /// 组合侧边导航栏和内容区域，实现整体布局
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../core/constants/app_colors.dart';
+import '../core/theme/app_theme.dart';
 import '../views/home_page.dart';
 import '../views/focus_page.dart';
 import '../views/task_page.dart';
@@ -43,9 +43,17 @@ class AppShellState extends State<AppShell> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Column(
+      backgroundColor: Colors.transparent,
+      body: AnimatedContainer(
+        duration: AppTheme.themeTransitionDuration,
+        curve: AppTheme.themeTransitionCurve,
+        decoration: BoxDecoration(
+          gradient: AppTheme.getBackgroundGradient(isDark),
+        ),
+        child: Column(
         children: [
           // 自定义标题栏
           const CustomTitleBar(),
@@ -91,6 +99,7 @@ class AppShellState extends State<AppShell> {
             ),
           ),
         ],
+      ),
       ),
     );
   }

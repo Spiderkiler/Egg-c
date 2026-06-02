@@ -111,10 +111,9 @@ class CircularTimer extends StatelessWidget {
                 timeText,
                 style: TextStyle(
                   fontSize: 56,
-                  fontWeight: FontWeight.w200,
+                  fontWeight: FontWeight.w300,
                   color: isDark ? Colors.white : AppColors.textPrimary,
-                  fontFamily: 'monospace',
-                  letterSpacing: 4,
+                  letterSpacing: 3,
                   height: 1.1,
                 ),
               ).animate(target: isRunning ? 1.0 : 0.0).scale(

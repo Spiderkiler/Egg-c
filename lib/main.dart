@@ -4,9 +4,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 import 'core/constants/app_colors.dart';
 import 'core/constants/app_constants.dart';
+import 'core/theme/app_theme.dart';
 import 'core/theme/theme_viewmodel.dart';
 import 'services/storage_service.dart';
 import 'services/notification_service.dart';
@@ -23,6 +25,7 @@ import 'viewmodels/statistics_viewmodel.dart';
 import 'viewmodels/achievement_viewmodel.dart';
 import 'viewmodels/settings_viewmodel.dart';
 import 'widgets/app_shell.dart';
+import 'widgets/theme_transition_overlay.dart';
 
 void main() async {
   // 确保Flutter绑定已完成
@@ -177,6 +180,7 @@ class SaltedEggClockApp extends StatelessWidget {
           create: (_) => SettingsViewModel(
             settingsRepository: settingsRepository,
             soundService: soundService,
+            timerService: timerService,
           ),
         ),
       ],
@@ -230,7 +234,12 @@ class _AppRootState extends State<AppRoot> with WidgetsBindingObserver {
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: themeVm.themeMode,
-          home: const AppShell(),
+          themeAnimationDuration: AppTheme.themeTransitionDuration,
+          themeAnimationCurve: AppTheme.themeTransitionCurve,
+          home: ThemeTransitionOverlay(
+            isDark: themeVm.isDark,
+            child: const AppShell(),
+          ),
         );
       },
     );

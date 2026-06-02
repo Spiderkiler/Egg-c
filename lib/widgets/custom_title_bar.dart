@@ -1,8 +1,11 @@
 /// 自定义标题栏组件
-/// 基于 window_manager 的 Windows 自定义窗口标题栏
+/// 基于 window_manager 的 Windows 自定义窗口标题栏，
+/// 使用 AnimatedContainer 使主题切换时背景颜色平滑过渡。
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:window_manager/window_manager.dart';
 import '../core/constants/app_colors.dart';
+import '../core/theme/app_theme.dart';
 
 class CustomTitleBar extends StatelessWidget implements PreferredSizeWidget {
   /// 标题文字
@@ -23,7 +26,9 @@ class CustomTitleBar extends StatelessWidget implements PreferredSizeWidget {
 
     return GestureDetector(
       onPanStart: (_) => windowManager.startDragging(),
-      child: Container(
+      child: AnimatedContainer(
+        duration: AppTheme.themeTransitionDuration,
+        curve: AppTheme.themeTransitionCurve,
         height: 40,
         decoration: BoxDecoration(
           color: isDark

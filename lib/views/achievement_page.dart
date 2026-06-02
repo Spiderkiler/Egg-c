@@ -40,7 +40,7 @@ class _AchievementPageState extends State<AchievementPage> {
                 '🏆 成就殿堂',
                 style: TextStyle(
                   fontSize: 28,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   color: isDark ? Colors.white : AppColors.textPrimary,
                 ),
               ),
@@ -123,7 +123,7 @@ class _AchievementPageState extends State<AchievementPage> {
                       '${(vm.progress * 100).toStringAsFixed(0)}%',
                       style: TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                        fontWeight: FontWeight.w600,
                         color: AppColors.primary,
                       ),
                     ),

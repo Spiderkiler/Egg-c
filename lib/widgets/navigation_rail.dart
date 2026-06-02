@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants/app_colors.dart';
+import '../core/theme/app_theme.dart';
 
 /// 导航项数据模型
 class NavItem {
@@ -55,7 +56,9 @@ class AppNavigationRail extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Container(
+    return AnimatedContainer(
+      duration: AppTheme.themeTransitionDuration,
+      curve: AppTheme.themeTransitionCurve,
       width: 88,
       decoration: BoxDecoration(
         color: isDark
@@ -140,7 +143,9 @@ class AppNavigationRail extends StatelessWidget {
 
     return GestureDetector(
       onTap: () => onDestinationSelected(item.index),
-      child: Container(
+      child: AnimatedContainer(
+        duration: AppTheme.themeTransitionDuration,
+        curve: AppTheme.themeTransitionCurve,
         width: 72,
         height: 64,
         margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 8),

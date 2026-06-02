@@ -1,6 +1,7 @@
 /// 白噪音播放服务
 /// 基于 audioplayers 的背景音播放管理服务
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/services.dart';
 
 class SoundService {
   static final SoundService _instance = SoundService._internal();
@@ -11,6 +12,7 @@ class SoundService {
   SoundService._internal();
 
   final AudioPlayer _player = AudioPlayer();
+  final AudioPlayer _alertPlayer = AudioPlayer();
 
   /// 当前播放的声音ID
   String? _currentSoundId;
@@ -29,6 +31,20 @@ class SoundService {
 
   /// 当前音量
   double get volume => _volume;
+
+  /// 播放完成提示音
+  /// 使用触感反馈 + 独立 AudioPlayer，不会干扰背景白噪音
+  void playCompletionSound() {
+    // 触感反馈（所有平台安全调用）
+    HapticFeedback.heavyImpact();
+
+    // 播放完成提示音文件（如果存在）
+    try {
+      _alertPlayer.play(AssetSource('sounds/radar-iphone-ringtone.mp3'));
+    } catch (_) {
+      // completion.mp3 不存在时静默忽略
+    }
+  }
 
   /// 播放指定白噪音
   Future<void> play(String soundId, String assetPath) async {
@@ -76,5 +92,6 @@ class SoundService {
   /// 释放资源
   void dispose() {
     _player.dispose();
+    _alertPlayer.dispose();
   }
 }

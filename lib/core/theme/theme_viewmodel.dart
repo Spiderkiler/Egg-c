@@ -53,6 +53,13 @@ class ThemeViewModel extends ChangeNotifier {
   /// 设置主题模式
   Future<void> setThemeMode(ThemeMode mode) async {
     _themeMode = mode;
+    // 同步更新 _isDark，确保外部能正确感知当前深色状态
+    if (mode == ThemeMode.dark) {
+      _isDark = true;
+    } else if (mode == ThemeMode.light) {
+      _isDark = false;
+    }
+    // ThemeMode.system 时保持平台亮度状态不变
     // 将 Flutter 的 ThemeMode 转换为模型层的 ThemeMode 进行存储
     await _settingsRepository.updateThemeMode(_toModelThemeMode(mode));
     notifyListeners();

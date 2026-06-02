@@ -7,10 +7,12 @@ import '../models/user_settings_model.dart';
 import '../models/sound_model.dart';
 import '../repositories/settings_repository.dart';
 import '../services/sound_service.dart';
+import '../services/timer_service.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   final SettingsRepository _settingsRepository;
   final SoundService _soundService;
+  final TimerService _timerService;
 
   /// 当前用户设置
   late UserSettingsModel _settings;
@@ -21,8 +23,10 @@ class SettingsViewModel extends ChangeNotifier {
   SettingsViewModel({
     required SettingsRepository settingsRepository,
     required SoundService soundService,
+    required TimerService timerService,
   })  : _settingsRepository = settingsRepository,
-        _soundService = soundService {
+        _soundService = soundService,
+        _timerService = timerService {
     _settings = _settingsRepository.get();
   }
 
@@ -48,6 +52,10 @@ class SettingsViewModel extends ChangeNotifier {
   Future<void> setFocusDuration(int minutes) async {
     _settings = _settings.copyWith(focusDuration: minutes);
     await _settingsRepository.save(_settings);
+    // 计时器未运行时立即生效
+    if (!_timerService.isRunning) {
+      _timerService.setFocusDuration(minutes);
+    }
     notifyListeners();
   }
 
@@ -55,6 +63,9 @@ class SettingsViewModel extends ChangeNotifier {
   Future<void> setShortBreakDuration(int minutes) async {
     _settings = _settings.copyWith(shortBreakDuration: minutes);
     await _settingsRepository.save(_settings);
+    if (!_timerService.isRunning) {
+      _timerService.setBreakDuration(minutes);
+    }
     notifyListeners();
   }
 
@@ -62,6 +73,9 @@ class SettingsViewModel extends ChangeNotifier {
   Future<void> setLongBreakDuration(int minutes) async {
     _settings = _settings.copyWith(longBreakDuration: minutes);
     await _settingsRepository.save(_settings);
+    if (!_timerService.isRunning) {
+      _timerService.setBreakDuration(minutes);
+    }
     notifyListeners();
   }
 
@@ -69,6 +83,8 @@ class SettingsViewModel extends ChangeNotifier {
   Future<void> setLongBreakInterval(int interval) async {
     _settings = _settings.copyWith(longBreakInterval: interval);
     await _settingsRepository.save(_settings);
+    // 长休息间隔可随时更新，不影响当前计时
+    _timerService.setLongBreakInterval(interval);
     notifyListeners();
   }
 

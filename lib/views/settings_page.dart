@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants/app_colors.dart';
+import '../core/theme/app_theme.dart';
 import '../core/theme/theme_viewmodel.dart';
 import '../viewmodels/settings_viewmodel.dart';
 import '../models/user_settings_model.dart';
@@ -43,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 '⚙ 设置',
                 style: TextStyle(
                   fontSize: 28,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w600,
                   color: isDark ? Colors.white : AppColors.textPrimary,
                 ),
               ),
@@ -275,6 +276,7 @@ class _SettingsPageState extends State<SettingsPage> {
               _buildToggleOption(
                 label: '当前主题',
                 value: themeVm.themeModeLabel,
+                valueKey: ValueKey(themeVm.themeModeLabel),
                 onTap: () async {
                   await themeVm.cycleThemeMode();
                   // 同步更新 SettingsViewModel 中的设置状态
@@ -430,6 +432,7 @@ class _SettingsPageState extends State<SettingsPage> {
     required VoidCallback onTap,
     required bool isDark,
     bool isClickable = false,
+    Key? valueKey,
   }) {
     return GestureDetector(
       onTap: isClickable ? onTap : null,
@@ -446,39 +449,55 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-            decoration: BoxDecoration(
-              color: isDark
-                  ? Colors.white.withValues(alpha: 0.05)
-                  : AppColors.primary.withValues(alpha: 0.06),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  value,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: isDark
-                        ? Colors.white70
-                        : AppColors.textPrimary,
-                  ),
+          // 使用 AnimatedSwitcher 使主题标签切换时产生平滑过渡动画
+          AnimatedSwitcher(
+            duration: AppTheme.themeTransitionDuration,
+            switchInCurve: Curves.easeOut,
+            switchOutCurve: Curves.easeIn,
+            transitionBuilder: (child, animation) {
+              return ScaleTransition(
+                scale: animation,
+                child: FadeTransition(
+                  opacity: animation,
+                  child: child,
                 ),
-                if (isClickable) ...[
-                  const SizedBox(width: 4),
-                  Icon(
-                    Icons.chevron_right_rounded,
-                    size: 18,
-                    color: isDark
-                        ? Colors.white38
-                        : AppColors.textDisabled,
+              );
+            },
+            child: Container(
+              key: valueKey,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.05)
+                    : AppColors.primary.withValues(alpha: 0.06),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    value,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: isDark
+                          ? Colors.white70
+                          : AppColors.textPrimary,
+                    ),
                   ),
+                  if (isClickable) ...[
+                    const SizedBox(width: 4),
+                    Icon(
+                      Icons.chevron_right_rounded,
+                      size: 18,
+                      color: isDark
+                          ? Colors.white38
+                          : AppColors.textDisabled,
+                    ),
+                  ],
                 ],
-              ],
+              ),
             ),
           ),
         ],

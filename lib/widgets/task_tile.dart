@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants/app_colors.dart';
+import '../core/theme/app_theme.dart';
 import '../models/task_model.dart';
 
 class TaskTile extends StatelessWidget {
@@ -45,7 +46,9 @@ class TaskTile extends StatelessWidget {
       onDismissed: (_) => onDelete?.call(),
       child: GestureDetector(
         onTap: onToggleComplete,
-        child: Container(
+        child: AnimatedContainer(
+          duration: AppTheme.themeTransitionDuration,
+          curve: AppTheme.themeTransitionCurve,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: task.isCompleted

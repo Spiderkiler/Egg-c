@@ -96,20 +96,23 @@ final ThemeData lightTheme = ThemeData(
   textTheme: const TextTheme(
     headlineLarge: TextStyle(
       color: AppColors.textPrimary,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     ),
     headlineMedium: TextStyle(
       color: AppColors.textPrimary,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
     ),
     bodyLarge: TextStyle(
       color: AppColors.textPrimary,
+      fontWeight: FontWeight.w500,
     ),
     bodyMedium: TextStyle(
       color: AppColors.textSecondary,
+      fontWeight: FontWeight.w400,
     ),
     labelSmall: TextStyle(
       color: AppColors.textDisabled,
+      fontWeight: FontWeight.w400,
     ),
   ),
 );
@@ -142,20 +145,23 @@ final ThemeData darkTheme = ThemeData(
   textTheme: const TextTheme(
     headlineLarge: TextStyle(
       color: Colors.white,
-      fontWeight: FontWeight.w700,
+      fontWeight: FontWeight.w600,
     ),
     headlineMedium: TextStyle(
       color: Colors.white,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
     ),
     bodyLarge: TextStyle(
       color: Colors.white,
+      fontWeight: FontWeight.w500,
     ),
     bodyMedium: TextStyle(
       color: Colors.white70,
+      fontWeight: FontWeight.w400,
     ),
     labelSmall: TextStyle(
       color: Colors.white38,
+      fontWeight: FontWeight.w400,
     ),
   ),
 );

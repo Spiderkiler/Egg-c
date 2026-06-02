@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants/app_colors.dart';
+import '../core/theme/app_theme.dart';
 import '../models/achievement_model.dart';
 
 class AchievementBadge extends StatelessWidget {
@@ -23,7 +24,9 @@ class AchievementBadge extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final isUnlocked = achievement.isUnlocked;
 
-    return Container(
+    return AnimatedContainer(
+      duration: AppTheme.themeTransitionDuration,
+      curve: AppTheme.themeTransitionCurve,
       width: size,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(

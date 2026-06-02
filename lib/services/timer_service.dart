@@ -168,6 +168,14 @@ class TimerService extends ChangeNotifier {
   void start() {
     if (_state == TimerState.running) return;
 
+    // 如果计时已完成，重置流逝时间再开始
+    if (_state == TimerState.completed) {
+      _elapsedSeconds = 0;
+      _remainingSeconds = _totalSeconds;
+      _currentRecord = null;
+      _sessionStartTime = null;
+    }
+
     _sessionStartTime ??= DateTime.now();
 
     // 如果是新开始的专注，创建记录
