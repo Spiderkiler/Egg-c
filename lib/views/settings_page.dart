@@ -3,12 +3,10 @@
 library;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants/app_colors.dart';
 import '../core/theme/app_theme.dart';
 import '../core/theme/theme_viewmodel.dart';
 import '../viewmodels/settings_viewmodel.dart';
-import '../models/user_settings_model.dart';
 import '../widgets/glass_card.dart';
 import '../widgets/sound_picker.dart';
 
@@ -209,33 +207,42 @@ class _SettingsPageState extends State<SettingsPage> {
             children: [
               Text(
                 label,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color:
-                      isDark ? Colors.white70 : AppColors.textPrimary,
+                  height: 1.5,
+                  color: isDark ? Colors.white70 : AppColors.textPrimary,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               SliderTheme(
-                data: SliderThemeData(
+                data: SliderTheme.of(context).copyWith(
                   activeTrackColor: AppColors.primary,
                   inactiveTrackColor: isDark
                       ? Colors.white.withValues(alpha: 0.08)
                       : AppColors.primary.withValues(alpha: 0.1),
                   thumbColor: AppColors.primary,
                   overlayColor: AppColors.primary.withValues(alpha: 0.15),
-                  trackHeight: 6,
+                  trackHeight: 4,
                   thumbShape: const RoundSliderThumbShape(
-                    enabledThumbRadius: 8,
+                    enabledThumbRadius: 7,
+                    pressedElevation: 4,
+                  ),
+                  overlayShape: const RoundSliderOverlayShape(
+                    overlayRadius: 16,
                   ),
                 ),
-                child: Slider(
-                  value: value,
-                  min: min,
-                  max: max,
-                  divisions: divisions,
-                  onChanged: onChanged,
+                child: SizedBox(
+                  height: 32,
+                  child: Slider(
+                    value: value,
+                    min: min,
+                    max: max,
+                    divisions: divisions,
+                    onChanged: onChanged,
+                  ),
                 ),
               ),
             ],

@@ -190,6 +190,10 @@ class FocusViewModel extends ChangeNotifier {
   void refreshSettings() {
     _settings = _settingsRepository.get();
     _timerService.setLongBreakInterval(_settings.longBreakInterval);
+    // 同步保存的专注时长到计时器，避免启动时始终显示默认的 25 分钟
+    if (!_timerService.isRunning) {
+      _timerService.setFocusDuration(_settings.focusDuration);
+    }
     notifyListeners();
   }
 

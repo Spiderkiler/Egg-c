@@ -2,7 +2,6 @@
 /// 展示用户已解锁和未解锁的成就徽章，支持进度追踪
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants/app_colors.dart';
 import '../viewmodels/achievement_viewmodel.dart';
 import '../widgets/achievement_badge.dart';

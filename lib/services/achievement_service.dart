@@ -7,7 +7,6 @@ import 'storage_service.dart';
 import 'notification_service.dart';
 
 class AchievementService extends ChangeNotifier {
-  final StorageService _storage;
   final NotificationService _notificationService;
 
   /// 已解锁成就数量
@@ -27,10 +26,8 @@ class AchievementService extends ChangeNotifier {
       StorageService.getAllAchievements();
 
   AchievementService({
-    required StorageService storage,
     required NotificationService notificationService,
-  })  : _storage = storage,
-        _notificationService = notificationService {
+  })  : _notificationService = notificationService {
     _refreshCounts();
   }
 

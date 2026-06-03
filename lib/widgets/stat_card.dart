@@ -1,7 +1,6 @@
 /// 统计卡片组件
 /// 用于展示单个统计指标的数值卡片
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants/app_colors.dart';
 import '../core/theme/app_theme.dart';
 

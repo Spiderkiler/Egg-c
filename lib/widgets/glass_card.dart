@@ -2,7 +2,6 @@
 /// 实现 Glassmorphism 风格的通用卡片容器，
 /// 使用 AnimatedContainer 使主题切换时颜色平滑过渡。
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'dart:ui';
 import '../core/constants/app_colors.dart';
 import '../core/theme/app_theme.dart';
@@ -69,9 +68,11 @@ class GlassCard extends StatelessWidget {
         (isDark ? Colors.black26 : AppColors.shadowLight);
 
     // 毛玻璃效果需要 BackdropFilter 包裹，外层用 AnimatedContainer 实现平滑过渡
+    // 使用 clipBehavior 替代内层 ClipRRect，避免圆角裁剪在 padding 内部截断文字
     return AnimatedContainer(
       duration: AppTheme.themeTransitionDuration,
       curve: AppTheme.themeTransitionCurve,
+      clipBehavior: Clip.antiAlias,
       width: width,
       height: height,
       margin: margin,
@@ -98,15 +99,12 @@ class GlassCard extends StatelessWidget {
           ),
         ],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(borderRadius),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: blurStrength / 10,
-            sigmaY: blurStrength / 10,
-          ),
-          child: child,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: blurStrength / 10,
+          sigmaY: blurStrength / 10,
         ),
+        child: child,
       ),
     );
   }

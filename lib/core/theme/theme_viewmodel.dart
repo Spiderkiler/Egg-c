@@ -47,6 +47,16 @@ class ThemeViewModel extends ChangeNotifier {
     final settings = _settingsRepository.get();
     // 将模型层的 ThemeMode 转换为 Flutter 的 ThemeMode
     _themeMode = _toFlutterThemeMode(settings.themeMode);
+    // 同步初始化 _isDark，避免启动时主题颜色闪烁
+    if (_themeMode == ThemeMode.dark) {
+      _isDark = true;
+    } else if (_themeMode == ThemeMode.light) {
+      _isDark = false;
+    } else {
+      // 跟随系统时立刻读取平台亮度
+      _isDark = WidgetsBinding.instance.platformDispatcher.platformBrightness ==
+          Brightness.dark;
+    }
     notifyListeners();
   }
 

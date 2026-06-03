@@ -4,7 +4,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 import 'core/constants/app_colors.dart';
 import 'core/constants/app_constants.dart';
@@ -54,7 +53,6 @@ void main() async {
 
   // 初始化成就服务
   final achievementService = AchievementService(
-    storage: StorageService(),
     notificationService: notificationService,
   );
 

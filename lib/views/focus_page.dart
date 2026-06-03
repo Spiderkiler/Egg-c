@@ -1,7 +1,6 @@
 /// 专注页面
 /// 核心番茄时钟页面，包含计时器、模式切换和控制按钮
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../core/constants/app_colors.dart';
@@ -9,7 +8,6 @@ import '../viewmodels/focus_viewmodel.dart';
 import '../services/timer_service.dart';
 import '../widgets/circular_timer.dart';
 import '../widgets/glass_card.dart';
-import '../models/task_model.dart';
 
 class FocusPage extends StatefulWidget {
   const FocusPage({super.key});
@@ -241,20 +239,16 @@ class _FocusPageState extends State<FocusPage> {
   /// 构建主操作按钮（大圆形）
   Widget _buildMainButton(FocusViewModel vm, bool isDark) {
     IconData icon;
-    String label;
     VoidCallback onTap;
 
     if (vm.isRunning) {
       icon = Icons.pause_rounded;
-      label = '暂停';
       onTap = vm.pause;
     } else if (vm.isPaused) {
       icon = Icons.play_arrow_rounded;
-      label = '继续';
       onTap = vm.resume;
     } else {
       icon = Icons.play_arrow_rounded;
-      label = '开始';
       onTap = vm.start;
     }
 
@@ -571,6 +565,8 @@ class _FocusPageState extends State<FocusPage> {
             Expanded(
               child: Text(
                 title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight:
@@ -580,12 +576,16 @@ class _FocusPageState extends State<FocusPage> {
               ),
             ),
             if (subtitle != null)
-              Text(
-                subtitle,
-                style: TextStyle(
-                  fontSize: 12,
-                  color:
-                      isDark ? Colors.white30 : AppColors.textDisabled,
+              Flexible(
+                child: Text(
+                  subtitle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color:
+                        isDark ? Colors.white30 : AppColors.textDisabled,
+                  ),
                 ),
               ),
           ],

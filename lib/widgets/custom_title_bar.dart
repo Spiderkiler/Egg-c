@@ -2,7 +2,6 @@
 /// 基于 window_manager 的 Windows 自定义窗口标题栏，
 /// 使用 AnimatedContainer 使主题切换时背景颜色平滑过渡。
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:window_manager/window_manager.dart';
 import '../core/constants/app_colors.dart';
 import '../core/theme/app_theme.dart';

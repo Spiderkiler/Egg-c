@@ -1,7 +1,6 @@
 /// 数字滚动动画组件
 /// 实现数字从旧值到新值的渐变滚动效果
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 
 class AnimatedCounter extends StatelessWidget {
   /// 显示数值
@@ -30,10 +29,6 @@ class AnimatedCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final text = isInteger
-        ? value.toInt().toString()
-        : value.toStringAsFixed(decimalPlaces);
-
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 0, end: value),
       duration: duration,

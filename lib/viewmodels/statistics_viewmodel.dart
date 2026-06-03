@@ -74,8 +74,6 @@ class StatisticsViewModel extends ChangeNotifier {
     final weekStart = DateTime(now.year, now.month, now.day)
         .subtract(Duration(days: now.weekday - 1));
 
-    final weekDays = ['一', '二', '三', '四', '五', '六', '日'];
-
     return List.generate(7, (i) {
       final day = weekStart.add(Duration(days: i));
       final dayEnd = day.add(const Duration(days: 1));

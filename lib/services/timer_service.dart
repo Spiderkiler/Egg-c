@@ -70,6 +70,7 @@ class TimerService extends ChangeNotifier {
   int get elapsedSeconds => _elapsedSeconds;
   int get remainingSeconds => _remainingSeconds;
   int get cycleCount => _cycleCount;
+  int get longBreakInterval => _longBreakInterval;
   FocusRecordModel? get currentRecord => _currentRecord;
 
   /// 进度（0.0 - 1.0）
